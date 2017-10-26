@@ -1,8 +1,11 @@
 package com.betomorrow.gradle.sample
 
+import groovy.json.JsonBuilder
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.ajoberstar.grgit.Grgit
+
+import java.time.Instant
 
 class MyFirstPlugin implements Plugin<Project> {
 
@@ -10,17 +13,30 @@ class MyFirstPlugin implements Plugin<Project> {
     void apply(Project project) {
 
         project.with {
-            task("info", description: "Show project information", group : "other") {
+
+            extensions.create("info", InfoExtension)
+
+            task("info", description: "Write project information", group : "other") {
                 doLast {
 
-                    def grgit = Grgit.open(currentDir : "..")
+                    def configuration = project.extensions.getByName("info")
 
-                    println("Project Informations : ")
-                    println("- Name : ${project.name}")
-                    println("- Version : ${project.version}")
-                    println("- Revision :${grgit.log().first().getAbbreviatedId()}")
+                    def grgit = Grgit.open()
+
+                    def builder = new JsonBuilder()
+                    def root  = builder.metadata {}
+                    root.metadata.name = project.name
+                    root.metadata.version = project.version
+                    root.metadata.buildDate = Instant.now().toString()
+                    root.metadata.revision = grgit.log().first().getAbbreviatedId()
+                    root.changelog = grgit.log(maxCommits:configuration.logSize).collect { it.fullMessage}
+
+                    project.file(configuration.filename).withWriter {
+                        it.write(builder.toPrettyString())
+                    }
                 }
             }
         }
     }
+
 }

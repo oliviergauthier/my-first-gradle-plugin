@@ -1,0 +1,11 @@
+{
+    "metadata": {
+        "name": "my-sample",
+        "version": "1.0-SNAPSHOT",
+        "buildDate": "2017-10-26T16:37:11.617Z",
+        "revision": "6b6a1ee"
+    },
+    "changelog": [
+        "Ajout de la tache\n"
+    ]
+}

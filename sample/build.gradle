@@ -12,3 +12,7 @@ apply plugin: 'my-first-gradle-plugin'
 
 version = "1.0-SNAPSHOT"
 
+info {
+    filename "package.json"
+    logSize 1
+}
