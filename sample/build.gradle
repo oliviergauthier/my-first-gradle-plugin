@@ -4,11 +4,11 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.betomorrow.gradle:my-first-gradle-plugin:1.0-SNAPSHOT'
+        classpath 'com.betomorrow.gradle:my-first-gradle-plugin:1.0'
     }
 }
 
-apply plugin: 'my-first-gradle-plugin'
+apply plugin: 'com.betomorrow.my-first-gradle-plugin'
 
 version = "1.0-SNAPSHOT"
 

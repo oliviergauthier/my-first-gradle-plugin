@@ -19,7 +19,7 @@ class MyFirstPlugin implements Plugin<Project> {
             task("info", description: "Write project information", group : "other") {
                 doLast {
 
-                    def configuration = project.extensions.getByName("info")
+                    def info = project.extensions.getByName("info")
 
                     def grgit = Grgit.open()
 
@@ -29,13 +29,14 @@ class MyFirstPlugin implements Plugin<Project> {
                     root.metadata.version = project.version
                     root.metadata.buildDate = Instant.now().toString()
                     root.metadata.revision = grgit.log().first().getAbbreviatedId()
-                    root.changelog = grgit.log(maxCommits:configuration.logSize).collect { it.fullMessage}
+                    root.changelog = grgit.log(maxCommits:info.logSize).collect { it.fullMessage}
 
-                    project.file(configuration.filename).withWriter {
+                    project.file(info.filename).withWriter {
                         it.write(builder.toPrettyString())
                     }
                 }
             }
+
         }
     }
 
