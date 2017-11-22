@@ -27,6 +27,13 @@ dependencies {
     compile gradleApi()
 
     compile 'org.ajoberstar:grgit:2.1.0'
+
+    testCompile 'junit:junit:4.12'
+    testCompile gradleTestKit()
+    testCompile ("org.spockframework:spock-core:1.1-groovy-2.4") {
+        exclude module : 'groovy-all'
+    }
+
 }
 
 publishing {
@@ -55,4 +62,7 @@ pluginBundle {
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.3.1'
+}
 

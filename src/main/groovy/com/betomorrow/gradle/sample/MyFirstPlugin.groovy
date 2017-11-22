@@ -1,11 +1,9 @@
 package com.betomorrow.gradle.sample
 
-import groovy.json.JsonBuilder
+import com.betomorrow.gradle.sample.extensions.InfoExtension
+import com.betomorrow.gradle.sample.tasks.InfoTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.ajoberstar.grgit.Grgit
-
-import java.time.Instant
 
 class MyFirstPlugin implements Plugin<Project> {
 
@@ -14,27 +12,11 @@ class MyFirstPlugin implements Plugin<Project> {
 
         project.with {
 
-            extensions.create("info", InfoExtension)
+            def info = extensions.create("info", InfoExtension, project)
 
-            task("info", description: "Write project information", group : "other") {
-                doLast {
-
-                    def info = project.extensions.getByName("info")
-
-                    def grgit = Grgit.open()
-
-                    def builder = new JsonBuilder()
-                    def root  = builder.metadata {}
-                    root.metadata.name = project.name
-                    root.metadata.version = project.version
-                    root.metadata.buildDate = Instant.now().toString()
-                    root.metadata.revision = grgit.log().first().getAbbreviatedId()
-                    root.changelog = grgit.log(maxCommits:info.logSize).collect { it.fullMessage}
-
-                    project.file(info.filename).withWriter {
-                        it.write(builder.toPrettyString())
-                    }
-                }
+            task("info", description: "Write project information", group: "other", type: InfoTask) {
+                logSize = info.logSize
+                filePath = info.filename
             }
 
         }

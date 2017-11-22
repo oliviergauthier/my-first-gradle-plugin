@@ -2,10 +2,10 @@
     "metadata": {
         "name": "my-sample",
         "version": "1.0-SNAPSHOT",
-        "buildDate": "2017-11-02T10:14:26.114Z",
-        "revision": "5efb2a8"
+        "buildDate": "2017-11-22T11:04:47.853Z",
+        "revision": "cdef069"
     },
     "changelog": [
-        "ajout des infos de build\n"
+        "Activation du plugin community\n"
     ]
 }
