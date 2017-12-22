@@ -1,4 +1,4 @@
-package com.betomorrow.gradle.sample
+package com.betomorrow.gradle.sample.metadata
 
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
@@ -38,7 +38,7 @@ class MyFirstPluginFunctionalTest extends Specification {
         def result = GradleRunner.create()
                 .withProjectDir(testProjectDir.root)
                 .withDebug(true)
-                .withArguments('info')
+                .withArguments('info', '--stacktrace')
                 .withPluginClasspath()
                 .build()
 

@@ -1,4 +1,4 @@
-package com.betomorrow.gradle.sample
+package com.betomorrow.gradle.sample.metadata
 
 import com.betomorrow.gradle.sample.tasks.InfoTask
 import org.gradle.testfixtures.ProjectBuilder

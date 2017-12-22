@@ -1,0 +1,29 @@
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile localGroovy()
+    compile 'org.ajoberstar:grgit:2.1.0'
+
+    testCompile 'junit:junit:4.12'
+    testCompile ("org.spockframework:spock-core:1.1-groovy-2.4") {
+        exclude module : 'groovy-all'
+    }
+}
+
+publishing {
+    publications {
+        myFirstLib(MavenPublication) {
+            from components.java
+            pom.withXml {
+                asNode().appendNode('description',
+                        'Library for my first Gradle Plugin')
+            }
+        }
+    }
+}
