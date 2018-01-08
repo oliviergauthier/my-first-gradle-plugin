@@ -19,7 +19,7 @@ class MyFirstPluginFunctionalTest extends Specification {
         buildFile = testProjectDir.newFile('build.gradle')
     }
 
-    def "info tasks generate metadata file"() {
+    def "info task generates metadata file"() {
         given:
         buildFile << """
             plugins {
